@@ -57,16 +57,14 @@ j.update = function() {
     }
   }
 
-  // if (this.dy < maxSpeed) {
-  //   this.dy += gravity;
-  // }
+  if (this.dy < maxSpeed) {
+    this.dy += gravity;
+  }
 
   this.move();
-
-  // console.log("velocities");
-  // console.log(this.dx, this.dy);
+  console.log("velocities");
+  console.log(this.dx, this.dy);
 }
-
 
 j.move = function() {
   this.shape.x += this.dx;
@@ -80,8 +78,8 @@ j.draw = function(ctx) {
     return "not loaded";
   }
   ctx.globalCompositeOperation = "lighter";
-  // console.log("this shapes: ");
-  // console.log(this.shape.x, this.shape.y);
+  console.log("this shapes: ");
+  console.log(this.shape.x, this.shape.y);
   ctx.drawImage(this.img, this.shape.x, this.shape.y, 45, 90);
   this.fires.forEach(function (fire) {
     fire.draw(ctx, self.shape.x + self.jetpackX, self.shape.y + self.jetpackY);
