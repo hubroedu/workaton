@@ -1,24 +1,24 @@
-
-var maxSpeed = 5;
-var minSpeed = -5;
-var gravity = 1.5;
+//This is a JeyDude-class
 
 JetDude = function() {
   //image loading for character
-  var self = this;
-  this.img = new Image();
-  this.img.src = "/img/jetdude.png";
-  this.loaded = false;
-  this.img.addEventListener("load", function() {
-    self.loaded = true;
-  });
+  Unit.call(this,{
+    imgSrc: "/img/jetdude.png",
+    x: 100, 
+    y: 100, 
+    w: 45, 
+    h: 90, 
+    dx: 0,
+    dy:0,
+    accY: 4,
+    accX: 1,
 
-  this.shape = new Shape.Rect(0, 0, 45, 90);
-  //Velocities
-  this.dx = 0;
-  this.dy = 0;
-  this.accY = 4;
-  this.accX = 1;
+    maxSpeed: 5,
+    minSpeed: -5,
+    gravity: 1.5,
+    hp: 10});
+  var self = this;
+
   //jetpack properties
   this.jetpackY = 70;
   this.jetpackX = 8;
@@ -33,36 +33,18 @@ j.update = function() {
   var self = this;
   // console.log(this.shape.intersects());
 
-  if (KeyDown.up) {
-    // up arrow
-    if (this.dy > minSpeed ) {
-      this.dy -= this.accY;
-    }
+  if(KeyDown.up){
+    this.move("up");
   }
-  else if (KeyDown.down) {
-    // down arrow
-    if (this.dy < maxSpeed) {
-      this.dy += this.accY;
-    }
+  if(KeyDown.down){
+    this.move("down");
   }
-  else if (KeyDown.right) {
-    // right arrow
-    if (this.dx < maxSpeed) {
-      this.dx += this.accX;
-    }
+  if(KeyDown.left){
+    this.move("left");
   }
-  else if (KeyDown.left) {
-    // left arrow¨
-    if (this.dx > minSpeed) {
-      this.dx -= this.accX;
-    }
+  if(KeyDown.right){
+    this.move("right");
   }
-
-  if (this.dy < maxSpeed) {
-    this.dy += gravity;
-  }
-
-  this.move();
   
   this.fires.forEach(function (fire) {
     fire.configure({
@@ -73,12 +55,12 @@ j.update = function() {
     });
     fire.update();
   });
+  this.moveUpdate();
+ // console.log("velocities");
+ // console.log(this.dx, this.dy);
+
 }
 
-j.move = function() {
-  this.shape.x += this.dx;
-  this.shape.y += this.dy;
-}
 
 j.draw = function(ctx) {
   var self = this;
@@ -86,6 +68,7 @@ j.draw = function(ctx) {
   if (!this.loaded) {
     return "not loaded";
   }
+  new Text(this.shape.x, this.shape.y, "X: " + this.shape.x + " Y: " + this.shape.y, "#fff").draw(ctx);
   ctx.globalCompositeOperation = "lighter";
   ctx.drawImage(this.img, this.shape.x, this.shape.y, 45, 90);
   this.fires.forEach(function (fire) {
@@ -100,5 +83,10 @@ j.atMaxSpeed = function(speed) {
      return true;
    };
    return false;
+}
+
+j.collied = function(colliedObject) {
+  this.dx= 0; 
+  this.dy= 0;
 }
 
