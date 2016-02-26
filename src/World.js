@@ -32,16 +32,16 @@ w.setupWorld = function () {
   }
   
   this.solidObjects = [
-    new SolidObject("/img/ground.jpg", -1000, 0, 700, 50),
-    new SolidObject("/img/ground.jpg", 0, 0, 2000, 50),
-    new SolidObject("/img/ground.jpg", 0, 400, 500, 50),
-    new SolidObject("/img/ground.jpg", 0, 800, 500, 50),
-    new SolidObject("/img/ground.jpg", 0, 1000, 500, 50),
-    new SolidObject("/img/ground.jpg", 0, 1200, 500, 50),
-    new SolidObject("/img/ground.jpg", 0, 1600, 500, 50),
-    new SolidObject("/img/ground.jpg", -300, 0, 50, 500),
-    new SolidObject("/img/ground.jpg", 000, 0, 50, 500),
-    new SolidObject("/img/ground.jpg", -300, 300, 50, 500, -40),
+    new SolidObject(1, "/img/ground.jpg", -1000, 0, 700, 50),
+    new SolidObject(2, "/img/ground.jpg", 0, 0, 2000, 50),
+    new SolidObject(3,"/img/ground.jpg", 0, 400, 500, 50),
+    new SolidObject(4, "/img/ground.jpg", 0, 800, 500, 50),
+    new SolidObject(5, "/img/ground.jpg", 0, 1000, 500, 50),
+    new SolidObject(6, "/img/ground.jpg", 0, 1200, 500, 50),
+    new SolidObject(7, "/img/ground.jpg", 0, 1600, 500, 50),
+    new SolidObject(8, "/img/ground.jpg", -300, 0, 50, 500),
+    new SolidObject(9, "/img/ground.jpg", 000, 0, 50, 500),
+    new SolidObject(10, "/img/ground.jpg", -300, 300, 50, 500, -40),
   ];
 };
 

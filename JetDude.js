@@ -56,8 +56,8 @@ j.update = function() {
     fire.update();
   });
   this.moveUpdate();
-  console.log("velocities");
-  console.log(this.dx, this.dy);
+ // console.log("velocities");
+ // console.log(this.dx, this.dy);
 
 }
 
@@ -68,6 +68,7 @@ j.draw = function(ctx) {
   if (!this.loaded) {
     return "not loaded";
   }
+  new Text(this.shape.x, this.shape.y, "X: " + this.shape.x + " Y: " + this.shape.y, "#fff").draw(ctx);
   ctx.globalCompositeOperation = "lighter";
   ctx.drawImage(this.img, this.shape.x, this.shape.y, 45, 90);
   this.fires.forEach(function (fire) {
@@ -84,4 +85,8 @@ j.atMaxSpeed = function(speed) {
    return false;
 }
 
+j.collied = function(colliedObject) {
+  this.dx= 0; 
+  this.dy= 0;
+}
 

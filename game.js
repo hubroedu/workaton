@@ -68,6 +68,7 @@ g.setupCanvas = function () {
 
 // Called every frame before draw
 g.update = function (dt) {
+  this.checkCollisions();
   this.jetDude.update();
   this.camera.move(
     this.jetDude.shape.x + 45/2,
@@ -75,6 +76,7 @@ g.update = function (dt) {
   
   this.camera.update(dt);
   //console.log("camera pos", this.camera.x, this.camera.y);
+
 };
 
 // Called every frame after update
@@ -102,6 +104,19 @@ g.draw = function (dt) {
   ctx.restore();
 };
 
+g.checkCollisions = function () {
+
+  for (var i = this.world.solidObjects.length - 1; i >= 0; i--) {
+    if(this.world.solidObjects[i].shape.intersects(this.jetDude.shape)){
+      this.jetDude.collied(this.world.solidObjects[i]);
+      console.log("JetDude Collied with stones");
+      console.log("JetDudes system: X:" + this.jetDude.shape.x + " Y:" + this.jetDude.shape.y + 
+        "W:" + this.jetDude.shape.width + " H:" + this.jetDude.shape.height); 
+      console.log("SolidObjects system: ID:" + this.world.solidObjects[i].id +  " X:" + this.world.solidObjects[i].shape.x + " Y:" + this.world.solidObjects[i].shape.y +
+        " W:" + this.world.solidObjects[i].shape.width + " H:" + this.world.solidObjects[i].shape.height);
+    }
+  };
+}
 
 
 new Game();

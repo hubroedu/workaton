@@ -14,7 +14,7 @@ a.draw = function(ctx) {
   if (!this.loaded) {
     return "not loaded";
   }
-  console.log("this shapes: ");
-  console.log(this.shape.x, this.shape.y);
+ // console.log("this shapes: ");
+ // console.log(this.shape.x, this.shape.y);
   ctx.drawImage(this.img, this.shape.x, this.shape.y, 45, 90);
 }
