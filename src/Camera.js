@@ -1,16 +1,16 @@
 Camera = function (x, y, width, height, canvasWidth, canvasHeight) {
   this.x = x;
   this.y = y;
-  
-  this.scaleX = 0.5;
-  this.scaleY = 0.5;
-  
+
+  this.scaleX = 0.1;
+  this.scaleY = 0.1;
+
   this.moveSpeed = 1.5;
   this.zoomSpeed = 0.005;
-  
+
   this.canvasWidth = canvasWidth;
   this.canvasHeight = canvasHeight;
-  
+
   this.viewportWidth = width;
   this.viewportHeight = height;
 };
@@ -29,11 +29,11 @@ c.getRealScale = function () {
 };
 
 c.update = function (dt) {
-  
+
   var scaleDiff = abs(this.getRealScale() - this.scaleX);
   this.scaleX += scaleDiff < this.zoomSpeed ? scaleDiff : this.zoomSpeed;
   this.scaleY += scaleDiff < this.zoomSpeed ? scaleDiff : this.zoomSpeed;
-  
+
   this.x = this.destinationX;
   this.y = this.destinationY;
 };
@@ -46,7 +46,7 @@ c.zoom = function (ctx) {
 
 c.draw = function (ctx) {
   if (false) {
-    
+
   ctx.strokeStyle = "#fff";
   ctx.strokeRect(-this.x / 2, -this.y / 2, this.viewportWidth, this.viewportHeight);
   ctx.fillRect(this.x + this.viewportWidth / 2, this.y + this.viewportHeight / 2, 10, 10);
