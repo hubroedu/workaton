@@ -30,7 +30,8 @@ JetDude = function() {
 var j = JetDude.prototype;
 
 j.update = function() {
-  console.log(this.atMaxSpeed(this.dy));
+  // console.log(this.shape.intersects());
+
   if (KeyDown.up) {
     // up arrow
     if (this.dy > minSpeed ) {
@@ -62,8 +63,8 @@ j.update = function() {
 
   this.move();
 
-  console.log("velocities");
-  console.log(this.dx, this.dy);
+  // console.log("velocities");
+  // console.log(this.dx, this.dy);
 }
 
 
@@ -79,8 +80,8 @@ j.draw = function(ctx) {
     return "not loaded";
   }
   ctx.globalCompositeOperation = "lighter";
-  console.log("this shapes: ");
-  console.log(this.shape.x, this.shape.y);
+  // console.log("this shapes: ");
+  // console.log(this.shape.x, this.shape.y);
   ctx.drawImage(this.img, this.shape.x, this.shape.y, 45, 90);
   this.fires.forEach(function (fire) {
     fire.draw(ctx, self.shape.x + self.jetpackX, self.shape.y + self.jetpackY);

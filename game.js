@@ -72,6 +72,9 @@ g.draw = function (dt) {
   var ctx = this.ctx;
   var canvas = this.canvas;
   ctx.save();
+  var obs1 =  new Shape(100, 100, 30, 40);
+  var obstacles = [];
+
   // Background
   ctx.globalCompositeOperation = "source-over";
   ctx.fillStyle = "#232323";
@@ -86,8 +89,6 @@ g.draw = function (dt) {
 
   ctx.restore();
 };
-
-
 
 
 
