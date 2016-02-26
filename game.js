@@ -19,6 +19,10 @@ g.startup = function (options) {
 
 g.loadAssets = function () {
   var jetDude = this.jetDude = new JetDude();
+  this.camera = new Camera(0, 0, this.canvas.width / 1, this.canvas.height / 1, this.canvas.width, this.canvas.height);
+  this.ground = new Ground(100, 500, 500, 100);
+  this.ground.loadAssets();
+
 };
 
 g.gameLoop = function () {
@@ -57,17 +61,8 @@ g.setupCanvas = function () {
 
 // Called every frame before draw
 g.update = function (dt) {
-  this.jetDude.fires.forEach(function (fire) {
-    fire.update();
-  });
-
-  this.jetDude.x += 1;
-  this.jetDude.y += 1;
-
-  console.log("Jet dude pos", this.jetDude.x, this.jetDude.y);
-
-  this.camera.move(this.jetDude.x + 45/2, this.jetDude.y + 90/2);
-
+  var jetDude = this.jetDude;
+  this.camera.move(this.jetDude.shape.x + 45/2, this.jetDude.shape.y + 90/2);
   console.log("camera pos", this.camera.x, this.camera.y);
   this.camera.update(dt);
 };
@@ -82,15 +77,14 @@ g.draw = function (dt) {
   ctx.fillStyle = "#232323";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   this.camera.zoom(ctx);
-
+  this.ground.draw(ctx, dt);
+  console.log(this.ground);
   var jetDude = this.jetDude;
-  console.log(jetDude.loaded);
   if (jetDude.loaded) {
-    jetDude.draw();
+    jetDude.draw(ctx);
   }
 
   ctx.restore();
-
 };
 
 
