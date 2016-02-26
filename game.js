@@ -23,14 +23,16 @@ g.startup = function (options) {
 
 g.loadAssets = function () {
   var jetDude = this.jetDude = new JetDude();
-  
+  this.world = new World();
+  var alien = this.alien = new Alien();
   this.camera = new Camera(
     0,
     0,
     this.canvas.width, this.canvas.height,
     this.canvas.width, this.canvas.height);
   
-  this.world = new World();
+
+
 };
 
 g.gameLoop = function () {
@@ -91,8 +93,10 @@ g.draw = function (dt) {
   this.world.draw(ctx);
   
   var jetDude = this.jetDude;
-  if (jetDude.loaded) {
+  var alien = this.alien;
+  if (jetDude.loaded && alien.loaded) {
     jetDude.draw(ctx);
+    alien.draw(ctx);
   }
 
   ctx.restore();
