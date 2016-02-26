@@ -2,6 +2,8 @@ Game = function () {
   this.startup();
 };
 
+DEBUG = false;
+
 var CANVAS_MARGINS = {
   top: 50,
   right: 50,
@@ -21,10 +23,14 @@ g.startup = function (options) {
 
 g.loadAssets = function () {
   var jetDude = this.jetDude = new JetDude();
-  this.camera = new Camera(0, 0, this.canvas.width / 1, this.canvas.height / 1, this.canvas.width, this.canvas.height);
-  this.ground = new Ground(100, 500, 500, 100);
-  this.ground.loadAssets();
-  this.obstacles.push(Ground);
+  
+  this.camera = new Camera(
+    0,
+    0,
+    this.canvas.width, this.canvas.height,
+    this.canvas.width, this.canvas.height);
+  
+  this.world = new World();
 };
 
 g.gameLoop = function () {
@@ -61,7 +67,10 @@ g.setupCanvas = function () {
 // Called every frame before draw
 g.update = function (dt) {
   this.jetDude.update();
-  this.camera.move(this.jetDude.shape.x + 45/2, this.jetDude.shape.y + 90/2)
+  this.camera.move(
+    this.jetDude.shape.x + 45/2,
+    this.jetDude.shape.y + 90/2);
+  
   this.camera.update(dt);
   //console.log("camera pos", this.camera.x, this.camera.y);
 };
@@ -76,8 +85,11 @@ g.draw = function (dt) {
   ctx.globalCompositeOperation = "source-over";
   ctx.fillStyle = "#232323";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
   this.camera.zoom(ctx);
-  this.ground.draw(ctx, dt);
+  
+  this.world.draw(ctx);
+  
   var jetDude = this.jetDude;
   if (jetDude.loaded) {
     jetDude.draw(ctx);

@@ -13,7 +13,7 @@ JetDude = function() {
     self.loaded = true;
   });
 
-  this.shape = new Shape.Rect(100, 100, 45, 90);
+  this.shape = new Shape.Rect(0, 0, 45, 90);
   //Velocities
   this.dx = 0;
   this.dy = 0;
@@ -22,7 +22,7 @@ JetDude = function() {
   //jetpack properties
   this.jetpackY = 70;
   this.jetpackX = 8;
-  this.fires = Particles.Fire.generate(50);
+  this.fires = Particles.Fire.generate(10);
 
 }
 
@@ -30,6 +30,7 @@ JetDude = function() {
 var j = JetDude.prototype;
 
 j.update = function() {
+  var self = this;
   // console.log(this.shape.intersects());
 
   if (KeyDown.up) {
@@ -62,8 +63,16 @@ j.update = function() {
   }
 
   this.move();
-  console.log("velocities");
-  console.log(this.dx, this.dy);
+  
+  this.fires.forEach(function (fire) {
+    fire.configure({
+      maxConeDx: Math.abs(self.dy),
+      maxSpeed: Math.abs(self.dy) * 10,
+      maxRadius: Math.abs(self.dy) * 1,
+      maxDistance: Math.abs(self.dy) * 100,
+    });
+    fire.update();
+  });
 }
 
 j.move = function() {
@@ -78,8 +87,6 @@ j.draw = function(ctx) {
     return "not loaded";
   }
   ctx.globalCompositeOperation = "lighter";
-  console.log("this shapes: ");
-  console.log(this.shape.x, this.shape.y);
   ctx.drawImage(this.img, this.shape.x, this.shape.y, 45, 90);
   this.fires.forEach(function (fire) {
     fire.draw(ctx, self.shape.x + self.jetpackX, self.shape.y + self.jetpackY);

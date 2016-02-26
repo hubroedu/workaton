@@ -1,10 +1,12 @@
 Shape = {};
 
-Shape.Rect = function (x, y, width, height) {
+Shape.Rect = function (x, y, width, height, rotation, color) {
   this.x = x;
   this.y = y;
   this.width = width;
   this.height = height;
+  this.rotation = rotation || 0;
+  this.color = color || "#fff";
 };
 
 var r = Shape.Rect.prototype;
@@ -21,4 +23,13 @@ r.intersects = function (other) {
   );
 
   return topRightOverlap || bottomRightOverlap;
+};
+
+r.draw = function (ctx) {
+  ctx.fillStyle = this.color;
+  ctx.fillRect(
+      this.x,
+      this.y,
+      this.width,
+      this.height);
 };
